@@ -1,10 +1,11 @@
 import React from 'react'
 
-export const Movies = () => {
+export const Cards = () => {
     return (
         <div>
             
         </div>
     )
 }
-export default Movies
+
+export default Cards
