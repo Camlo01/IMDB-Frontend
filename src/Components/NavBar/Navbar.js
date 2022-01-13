@@ -1,54 +1,60 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
+  Container,
+  Wrapper,
   IconLogo,
-  IconLogoMobile,
   Menu,
   MenuItem,
   MenuItemLink,
-  NavbarContainer,
-  Navbarwrapper,
+  MobileMenuIcon,
 } from "./Navbar.elements";
-import { AiFillVideoCamera } from "react-icons/ai";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { IconContext } from "react-icons";
+import { AiFillVideoCamera } from "react-icons/ai";
 
 const Navbar = () => {
-  const [click, setClick] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  const ChangeClick = () => {
-    setClick(!click);
-    console.log(click);
+  const handleShowMobileMenu = () => {
+    setShowMobileMenu(!showMobileMenu);
   };
-
   return (
     <>
-      <NavbarContainer>
-        <Navbarwrapper>
+      <Container>
+        <Wrapper>
+          <IconContext.Provider value={{ color: "#eee", size: "1.8em" }}>
           <IconLogo>
             <AiFillVideoCamera size={"2em"} />
-            IMDB
+               IMDB
           </IconLogo>
 
-          <IconLogoMobile onClick={() => ChangeClick()}>
-            {click ? <FaTimes /> : <FaBars />}
-          </IconLogoMobile>
+            <MobileMenuIcon onClick={() => handleShowMobileMenu()}>
+              {showMobileMenu ? <FaTimes /> : <FaBars />}
+            </MobileMenuIcon>
 
-          <Menu click={click}>
-            <MenuItem onClick={() => ChangeClick()}>
-              <MenuItemLink>HOME</MenuItemLink>
-            </MenuItem>
-            <MenuItem onClick={() => ChangeClick()}>
-              <MenuItemLink>MOVIES</MenuItemLink>
-            </MenuItem> 
-            <MenuItem onClick={() => ChangeClick()}>
-              <MenuItemLink>ABOUT US</MenuItemLink>
-            </MenuItem>
-            <MenuItem onClick={() => ChangeClick()}>
-              <MenuItemLink>PROFILE</MenuItemLink>
-            </MenuItem>
-          </Menu>
-        </Navbarwrapper>
-      </NavbarContainer>
+            <Menu showMobileMenu={showMobileMenu}>
+              <MenuItem onClick={() => handleShowMobileMenu()}>
+                <MenuItemLink>HOME</MenuItemLink>
+                <hr />
+              </MenuItem>
+              <MenuItem onClick={() => handleShowMobileMenu()}>
+                <MenuItemLink>ABOUT US</MenuItemLink>
+                <hr />
+              </MenuItem>
+              <MenuItem onClick={() => handleShowMobileMenu()}>
+                <MenuItemLink>PORTFOLIO</MenuItemLink>
+                <hr />
+              </MenuItem>
+              <MenuItem onClick={() => handleShowMobileMenu()}>
+                <MenuItemLink>CONTACT US</MenuItemLink>
+                <hr />
+              </MenuItem>
+            </Menu>
+          </IconContext.Provider>
+        </Wrapper>
+      </Container>
     </>
   );
 };
-export default Navbar;
+
+export default Navbar
