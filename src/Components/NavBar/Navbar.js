@@ -22,7 +22,7 @@ const Navbar = () => {
     <>
       <Container>
         <Wrapper>
-          <IconContext.Provider value={{ color: "#eee", size: "1.8em" }}>
+          <IconContext.Provider value={{ color: "#ebc88b", size: "1.8em" }}>
           <IconLogo>
             <AiFillVideoCamera size={"2em"} />
                IMDB

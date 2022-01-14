@@ -82,7 +82,7 @@ export const MenuItem = styled.li`
 
 export const MenuItemLink = styled.a`
   padding: 0.5rem 4rem;
-  color: #ccc;
+  color: #ebc88b;
   font-family: "Oswald";
   font-size: 1rem;
   font-weight: 300;
