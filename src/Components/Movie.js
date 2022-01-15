@@ -11,13 +11,13 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 const Movie = () => {
   let [movies, setMovies] = useState([]);
   let [movie, setMovie] = useState({
-    id: "",
-    title: ",",
-    poster: "",
-    trailer: "",
-    description: "",
-    yearReleased: "",
-    rating: "",
+    idModal: "",
+    titleModal: ",",
+    posterModal: "",
+    trailerModal: "",
+    descriptionModal: "",
+    yearReleasedModal: "",
+    ratingModal: "",
   });
 
   let [show, setShow] = useState(false);
@@ -31,10 +31,12 @@ const Movie = () => {
   const queryMovies = () => {
     axios.get("http://192.168.1.11:8080/api/movie/all").then((response) => {
       setMovies(response.data);
+
     });
   };
 
   const handleClose = () => setShow(false);
+
   const agregarMovie = () => {
     setEdit(false);
     setMovies({
@@ -46,8 +48,14 @@ const Movie = () => {
       yearReleased: "",
       rating: "",
     });
+
+    // POST
+    
     setEdit(false);
     setShow(true);
+
+    
+  
   };
 
   const handleInputChange = (e) => {
@@ -71,8 +79,7 @@ const Movie = () => {
         });
     } else {
       console.log("guardando", movie);
-      axios
-        .post("http://localhost:8080/api/Movie/new", movie, { headers })
+      axios.post("http://localhost:8080/api/Movie/new", movie, { headers })
         .then((response) => {
           setShow(false);
           alert("se guardo Movie");
@@ -83,7 +90,7 @@ const Movie = () => {
 
   const borrarMovie = (id) => {
     axios.delete("http://localhost:8080/api/movie/" + id).then((response) => {
-      alert("se elimimo Movie");
+      alert("The movie was deleted");
       setShow(false);
       queryMovies();
     });
@@ -95,6 +102,7 @@ const Movie = () => {
     setShow(true);
   };
 
+
   return (
     <Container className="justify-content-center">
       <Row className="mb-3 justify-content-center">
@@ -102,95 +110,98 @@ const Movie = () => {
         <div className="p-3 me-md-3 border bg-light">
           <Card.Text>
             <form className="row g-3">
-              {/*<div className="col-auto">
+              {/* INPUT DE ID */}
+              <div className="col-auto">
+                Id:
                    <label for="inputPassword2" className="visually-hidden">
                     Id
                   </label>
                   <input
                     type="none"
                     className="form-control"
-                    id="inputTextId"
-                    placeholder="id"
+                    id="id"
+                    placeholder="1"
                     disabled
                   /> 
-                </div>*/}
+                </div>
               <div className="col-md-4 col-sm-4">
-                  Title:
+                Title:
                 <label for="inputPassword2" className="visually-hidden">
                   Title
                 </label>
                 <input
                   type="text"
                   className="form-control"
-                  id="inputTextTitle"
+                  id="title"
                   placeholder="Title of the movie"
                   required
                 />
               </div>
               <div className="col-md-4 col-sm-4">
-                  Poster:
+                Poster:
                 <label for="inputPassword2" className="visually-hidden">
                   Poster
                 </label>
                 <input
                   type="Text"
                   className="form-control"
-                  id="inputTextPoster"
+                  id="Poster"
                   placeholder="Link of the poster"
                   required
                 />
               </div>
               <div className="col-md-4 col-sm-4">
-                  Trailer:
+                Trailer:
                 <label for="inputPassword2" className="visually-hidden">
                   Trailer
                 </label>
                 <input
                   type="Text"
                   className="form-control"
-                  id="inputTextTrailer"
+                  id="Trailer"
                   placeholder="Link of the trailer"
                   required
                 />
               </div>
               <div className="col-md-4 col-sm-4">
-                  Description:
+                Description:
                 <label for="inputPassword2" className="visually-hidden">
                   Description
                 </label>
                 <input
                   type="Text"
                   className="form-control"
-                  id="inputTextDescription"
+                  id="Description"
                   placeholder="describe the movie "
                   required
                 />
               </div>
-              <hr/>
+              <hr />
               <div className="col-md-4 col-sm-4">
-                 Year Released:
+                Year Released:
                 <label for="inputTextYearReleased" className="visually-hidden">
                   year Released
                 </label>
                 <input
                   type="Number"
                   className="form-control"
-                  id="inputTextYearReleased"
-                  placeholder="1910"
+                  id="yearReleased"
+                  placeholder="year"
+                  contenteditable="true"
                   min="1910"
                   max="2022"
                   required
                 />
               </div>
               <div className="col-md-4 col-sm-4">
-                  Rating:
+                Rating:
                 <label for="inputTextRating" className="visually-hidden">
                   Rating
                 </label>
                 <input
                   type="Number"
                   className="form-control"
-                  id="inputTextRating"
+                  id="Rating"
                   placeholder="Rating"
                   min="0.0"
                   max="10"
@@ -217,14 +228,13 @@ const Movie = () => {
         <div className="col-8">
           <h5>Manage the list of movies and series</h5>
         </div>
-
-        {/*
+        {/* 
         <div className="col-4">
           <button className="btn btn-primary" onClick={() => agregarMovie()}>
             add Movie or serie
           </button>
-        </div>
-        */}
+        </div> */}
+
         <div className="overflow-scroll">
           <table className="table table-hover table-responsive ">
             <thead>
@@ -296,7 +306,7 @@ const Movie = () => {
               <input
                 type="number"
                 className="form-control"
-                id="id"
+                id="idModal"
                 placeholder="id"
                 onChange={handleInputChange}
                 value={movie.id}
@@ -308,7 +318,7 @@ const Movie = () => {
               <input
                 type="text"
                 className="form-control"
-                id="brand"
+                id="titleModal"
                 placeholder="brand"
                 onChange={handleInputChange}
                 value={movie.title}
@@ -319,7 +329,7 @@ const Movie = () => {
               <input
                 type="img"
                 className="form-control"
-                id="category"
+                id="posterModal"
                 placeholder="category"
                 onChange={handleInputChange}
                 value={movie.poster}
@@ -330,7 +340,7 @@ const Movie = () => {
               <input
                 type="img"
                 className="form-control"
-                id="name"
+                id="trailerModal"
                 placeholder="name"
                 onChange={handleInputChange}
                 value={movie.trailer}
@@ -341,7 +351,7 @@ const Movie = () => {
               <input
                 type="text"
                 className="form-control"
-                id="description"
+                id="descriptionModal"
                 placeholder="description"
                 onChange={handleInputChange}
                 value={movie.description}
@@ -352,7 +362,7 @@ const Movie = () => {
               <input
                 type="number"
                 className="form-control"
-                id="price"
+                id="yearReleasedModal"
                 placeholder="price"
                 onChange={handleInputChange}
                 value={movie.yearReleased}
@@ -363,7 +373,7 @@ const Movie = () => {
               <input
                 type="number"
                 className="form-control"
-                id="price"
+                id="ratingModal"
                 placeholder="price"
                 onChange={handleInputChange}
                 value={movie.rating}

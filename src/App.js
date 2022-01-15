@@ -5,7 +5,7 @@ import Home from "./Components/Pages/Home";
 import Profile from "./Components/Pages/Profile";
 import Contactus from "./Components/Pages/Contactus";
 import Navbar from "./Components/Navbar/Navbar";
-import Movies from "./Components/movies"
+import Movie from "./Components/Movie"
 function App() {
   return (
     <>
@@ -17,7 +17,7 @@ function App() {
           <Route exact path="/Contactus" element={<Contactus />} />
           <Route exact path="/Profile" element={<Profile />} />
         </Switch>
-        <Movies/>
+        <Movie/>
       </Router>
     </>
   );
