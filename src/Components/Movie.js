@@ -24,14 +24,13 @@ const Movie = () => {
   let [edit, setEdit] = useState(false);
 
   useEffect(() => {
-    console.log("iniciando Moviesform");
+    console.log("Desplegando todo el listado");
     queryMovies();
   }, []);
 
   const queryMovies = () => {
     axios.get("http://192.168.1.11:8080/api/movie/all").then((response) => {
       setMovies(response.data);
-
     });
   };
 
@@ -50,12 +49,9 @@ const Movie = () => {
     });
 
     // POST
-    
+
     setEdit(false);
     setShow(true);
-
-    
-  
   };
 
   const handleInputChange = (e) => {
@@ -64,6 +60,17 @@ const Movie = () => {
       [e.currentTarget.id]: e.currentTarget.value,
     });
   };
+
+  const nuevaMovie = () => {
+    const headers = { "Content-Type": "application/json" };
+    console.log("Guardando", movie);
+    axios
+      .post(`http://localhost:8080/api/movie/new`, movie, { headers })
+      .then((response) => {
+        queryMovies();
+      });
+  };
+
   const guardarMovie = () => {
     const headers = {
       "Content-Type": "application/json",
@@ -79,7 +86,8 @@ const Movie = () => {
         });
     } else {
       console.log("guardando", movie);
-      axios.post("http://localhost:8080/api/Movie/new", movie, { headers })
+      axios
+        .post("http://localhost:8080/api/Movie/new", movie, { headers })
         .then((response) => {
           setShow(false);
           alert("se guardo Movie");
@@ -102,7 +110,6 @@ const Movie = () => {
     setShow(true);
   };
 
-
   return (
     <Container className="justify-content-center">
       <Row className="mb-3 justify-content-center">
@@ -113,17 +120,16 @@ const Movie = () => {
               {/* INPUT DE ID */}
               <div className="col-auto">
                 Id:
-                   <label for="inputPassword2" className="visually-hidden">
-                    Id
-                  </label>
-                  <input
-                    type="none"
-                    className="form-control"
-                    id="id"
-                    placeholder="1"
-                    disabled
-                  /> 
-                </div>
+                <label for="inputPassword2" className="visually-hidden">
+                  Id
+                </label>
+                <input
+                  type="none"
+                  className="form-control"
+                  id="id"
+                  placeholder="1"
+                />
+              </div>
               <div className="col-md-4 col-sm-4">
                 Title:
                 <label for="inputPassword2" className="visually-hidden">
@@ -214,7 +220,7 @@ const Movie = () => {
               <div className="col-auto">
                 <button
                   className="btn btn-primary g-col-md-3 .offset-md-3"
-                  onClick={() => agregarMovie()}
+                  onClick={() => nuevaMovie()}
                 >
                   Add Movie
                 </button>
